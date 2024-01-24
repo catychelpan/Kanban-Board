@@ -124,6 +124,7 @@ ul {
 
 .drag-item-list {
   min-height: 50px;
+  transition: 350ms ease;
 }
 
 .drag-item {

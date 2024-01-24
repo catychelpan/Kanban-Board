@@ -13,11 +13,16 @@ const onHoldListEl = document.getElementById('on-hold-list');
 let updatedOnLoad = false;
 
 
+
 let backlogListArray = [];
 let progressListArray = [];
 let completeListArray = [];
 let onHoldListArray = [];
 let listArrays = [];
+
+//Drag Functionality variables
+let draggedItem;
+let columnToDropTo;
 
 
 function getSavedColumns() {
@@ -50,9 +55,12 @@ function getSavedColumns() {
         const listItem = document.createElement('li');
         listItem.classList.add("drag-item");
         listItem.textContent = item;
+        listItem.draggable = true;
+        listItem.setAttribute('ondragstart', 'drag(event)');
+        
         listColumn.appendChild(listItem);
 
-        return listItem;
+        
 
   }
 
@@ -106,7 +114,83 @@ function updateDOM() {
 
     // Don't run more than once, Update Local Storage
 
+    updatedOnLoad = true;
+    updateSavedColumns();
+
+
   }
+
+
+  function drag(e) {
+
+    draggedItem = e.target;
+    
+
+  }
+
+  //Allowing item to be dropped in other columns
+  function allowDrop(e) {
+    e.preventDefault();
+  }
+
+  //Dropping item into the column
+  function drop(e) {
+    e.preventDefault();
+    //our functionality
+    e.currentTarget.appendChild(draggedItem);
+
+
+    listColumns.forEach(list => {
+
+      list.classList.remove("over");
+
+    })
+    
+    rebuildArrays()
+
+  }
+
+
+  function rebuildArrays() {
+
+    backlogListArray = [];
+
+    for (let i = 0; i < backlogListEl.children.length; i++) {
+      backlogListArray.push(backlogListEl.children[i].textContent);
+    }
+
+    progressListArray = [];
+
+    for (let i = 0; i < progressListEl.children.length; i++) {
+      progressListArray.push(progressListEl.children[i].textContent);
+    }
+
+    completeListArray = [];
+
+    for (let i = 0; i < completeListEl.children.length; i++) {
+      completeListArray.push(completeListEl.children[i].textContent);
+    }
+
+    onHoldListArray = [];
+
+    for (let i = 0; i < onHoldListEl.children.length; i++) {
+      onHoldListArray.push(onHoldListEl.children[i].textContent);
+    }
+
+    updateDOM();
+
+  }
+
+
+  //Item enters a column
+  function enterCol(columnInd) {
+    listColumns[columnInd].classList.add("over");
+    columnToDropTo = columnInd;
+    
+
+  }
+
+
 
   updateDOM();
   
