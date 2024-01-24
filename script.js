@@ -191,6 +191,44 @@ function updateDOM() {
   }
 
 
+  //Diplay input field on add button click
+
+  function showInputBox(colInd) {
+
+    addBtns[colInd].style.display = 'none';
+    saveItemBtns[colInd].style.display = 'flex';
+    addItemContainers[colInd].style.display = 'flex';
+
+
+
+  }
+
+  function  addTocolumn(colInd) {
+
+    const itemText = addItems[colInd].textContent;
+    const selectedArray = listArrays[colInd];
+    selectedArray.push(itemText);
+    updateDOM();
+    addItems[colInd].textContent = '';
+
+
+  }
+
+  //Hide input field on save button click
+
+    function hideInputBox(colInd) {
+
+      addBtns[colInd].style.display = 'flex';
+      saveItemBtns[colInd].style.display = 'none';
+      addItemContainers[colInd].style.display = 'none';
+
+      const item = addItemContainers[colInd].textContent;
+
+      addTocolumn(colInd);
+    
+    }
+
+
 
   updateDOM();
   
