@@ -196,31 +196,16 @@ function getSavedColumns() {
   }
 
 
+
   function rebuildArrays() {
 
-    backlogListArray = [];
+    backlogListArray = Array.from(backlogListEl.children).map(child => child.textContent);
 
-    for (let i = 0; i < backlogListEl.children.length; i++) {
-      backlogListArray.push(backlogListEl.children[i].textContent);
-    }
+    progressListArray = Array.from(progressListEl.children).map(child => child.textContent);
 
-    progressListArray = [];
+    completeListArray = Array.from(completeListEl.children).map(child => child.textContent);
 
-    for (let i = 0; i < progressListEl.children.length; i++) {
-      progressListArray.push(progressListEl.children[i].textContent);
-    }
-
-    completeListArray = [];
-
-    for (let i = 0; i < completeListEl.children.length; i++) {
-      completeListArray.push(completeListEl.children[i].textContent);
-    }
-
-    onHoldListArray = [];
-
-    for (let i = 0; i < onHoldListEl.children.length; i++) {
-      onHoldListArray.push(onHoldListEl.children[i].textContent);
-    }
+    onHoldListArray = Array.from(onHoldListEl.children).map(child => child.textContent);
 
     updateDOM();
 
